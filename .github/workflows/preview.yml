@@ -11,7 +11,7 @@ concurrency:
 jobs:
   deploy-preview:
     runs-on: ubuntu-latest
-    if: github.event.action != 'closed'
+    if: github.event.action != 'closed' && startsWith(github.head_ref, 'gh-page/')
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
@@ -39,7 +39,7 @@ jobs:
 
   cleanup-preview:
     runs-on: ubuntu-latest
-    if: github.event.action == 'closed'
+    if: github.event.action == 'closed' && startsWith(github.head_ref, 'gh-page/')
     steps:
       # FIX: Initialize the repository inside the cleanup environment
       - name: Checkout Code
