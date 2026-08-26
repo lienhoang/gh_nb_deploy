@@ -41,6 +41,10 @@ jobs:
     runs-on: ubuntu-latest
     if: github.event.action == 'closed'
     steps:
+      # FIX: Initialize the repository inside the cleanup environment
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
       - name: Clean up PR Preview
         uses: rossjrw/pr-preview-action@v1
         with:
