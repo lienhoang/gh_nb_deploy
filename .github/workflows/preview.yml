@@ -11,30 +11,31 @@ concurrency:
 jobs:
   deploy-preview:
     runs-on: ubuntu-latest
-    # Do not run on closed PRs unless it's the cleanup step
     if: github.event.action != 'closed'
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      # 1. Setup Ruby environment for Jekyll
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
         with:
-          node-version: '20'
-          cache: 'npm'
+          ruby-version: '3.2' # Match your local Ruby version
+          bundle-cache: true   # Automatically caches your gems
 
-      - name: Install Dependencies
-        run: npm ci
+      # 2. Compile Jekyll with a dynamic baseurl matching the PR folder path
+      - name: Build Jekyll Site
+        run: |
+          bundle install
+          bundle exec jekyll build --baseurl "/${{ github.event.repository.name }}/pr-preview/pr-${{ github.event.number }}"
 
-      - name: Build Site
-        run: npm run build
-
+      # 3. Push compiled '_site' directory to GitHub Pages branch
       - name: Deploy PR Preview
         uses: rossjrw/pr-preview-action@v1
         with:
-          source-dir: dist # Change to your build output folder (e.g., build, public, _site)
-          preview-branch: gh-pages # Your active GitHub Pages deployment branch
-          umbrella-dir: pr-preview # The subfolder where all PR previews will live
+          source-dir: _site # Jekyll defaults to writing files to _site
+          preview-branch: gh-pages
+          umbrella-dir: pr-preview
 
   cleanup-preview:
     runs-on: ubuntu-latest
@@ -43,7 +44,7 @@ jobs:
       - name: Clean up PR Preview
         uses: rossjrw/pr-preview-action@v1
         with:
-          source-dir: dist
+          source-dir: _site
           preview-branch: gh-pages
           umbrella-dir: pr-preview
           action: remove
