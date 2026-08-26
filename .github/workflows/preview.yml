@@ -1,4 +1,18 @@
-# ... keep the top metadata sections the exact same ...
+name: Deploy PR Preview
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, closed]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.number }}
+  cancel-in-progress: true
+
+jobs:
+  deploy-preview:
+    runs-on: ubuntu-latest
+    if: github.event.action != 'closed'
+    # ... keep the top metadata sections the exact same ...
 
     steps:
       - name: Checkout Code
