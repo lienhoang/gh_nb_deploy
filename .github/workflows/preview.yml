@@ -3,6 +3,8 @@ name: Deploy PR Preview
 on:
   pull_request:
     types: [opened, synchronize, reopened, closed]
+    branches:
+      - 'gh-page/**'
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.number }}
@@ -11,7 +13,7 @@ concurrency:
 jobs:
   deploy-preview:
     runs-on: ubuntu-latest
-    if: github.event.action != 'closed' && startsWith(github.head_ref, 'gh-page/')
+    if: github.event.action != 'closed'
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
@@ -39,7 +41,7 @@ jobs:
 
   cleanup-preview:
     runs-on: ubuntu-latest
-    if: github.event.action == 'closed' && startsWith(github.head_ref, 'gh-page/')
+    if: github.event.action == 'closed'
     steps:
       # FIX: Initialize the repository inside the cleanup environment
       - name: Checkout Code
