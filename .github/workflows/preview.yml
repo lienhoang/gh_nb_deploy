@@ -15,7 +15,7 @@ jobs:
       startsWith(github.head_ref, 'gh-page/')
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
@@ -45,7 +45,7 @@ jobs:
     steps:
       # FIX: Initialize the repository inside the cleanup environment
       - name: Checkout Code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Clean up PR Preview
         uses: rossjrw/pr-preview-action@v1
