@@ -3,3 +3,5 @@ markdown: kramdown
 plugins:
   - jekyll-remote-theme
 color_scheme: dark
+navigation:
+  auto_generate: true
