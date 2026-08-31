@@ -11,10 +11,8 @@ concurrency:
 jobs:
   deploy-preview:
     runs-on: ubuntu-latest
-    if: github.event.action != 'closed' && startsWith(github.head_ref, 'gh-page/')
-    environment:
-      name: github-pages # Links the job to the official deployment environment
-      url: ${{ steps.deployment.outputs.page_url }} # Optional: captures url if action exports it
+    if: github.event.action != 'closed' && 
+      startsWith(github.head_ref, 'gh-page/')
     steps:
       - name: Checkout Code
         uses: actions/checkout@v6
@@ -25,14 +23,15 @@ jobs:
           ruby-version: '3.2'
           bundle-cache: true
 
+      # FIX: Run the bundle install and jekyll build strictly INSIDE the docs directory
       - name: Build Jekyll Site
         working-directory: docs
         run: |
           bundle install
           bundle exec jekyll build --baseurl "/${{ github.event.repository.name }}/pr-preview/pr-${{ github.event.number }}"
 
+      # The files are now built inside "docs/_site"
       - name: Deploy PR Preview
-        id: deployment
         uses: rossjrw/pr-preview-action@v1
         with:
           source-dir: docs/_site
@@ -41,10 +40,10 @@ jobs:
 
   cleanup-preview:
     runs-on: ubuntu-latest
-    if: github.event.action == 'closed' && startsWith(github.head_ref, 'gh-page/')
-    environment:
-      name: github-pages
+    if: github.event.action == 'closed' && 
+      startsWith(github.head_ref, 'gh-page/')
     steps:
+      # FIX: Initialize the repository inside the cleanup environment
       - name: Checkout Code
         uses: actions/checkout@v6
 
