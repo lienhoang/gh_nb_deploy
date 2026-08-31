@@ -35,7 +35,7 @@ jobs:
         uses: rossjrw/pr-preview-action@v1
         with:
           source-dir: docs/_site
-          preview-branch: gh-pages
+          preview-branch: github-pages
           umbrella-dir: pr-preview
 
   cleanup-preview:
@@ -51,6 +51,6 @@ jobs:
         uses: rossjrw/pr-preview-action@v1
         with:
           source-dir: docs/_site
-          preview-branch: gh-pages
+          preview-branch: github-pages
           umbrella-dir: pr-preview
           action: remove
