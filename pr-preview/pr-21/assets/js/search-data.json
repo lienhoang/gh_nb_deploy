@@ -1,0 +1,65 @@
+{"0": {
+    "doc": "APC",
+    "title": "APC",
+    "content": "APC dataset QC metrics ghdhj . ",
+    "url": "/gh_nb_deploy/pr-preview/pr-21/p14_release_pages/p14_pre_processing_qc/apc.html",
+    
+    "relUrl": "/p14_release_pages/p14_pre_processing_qc/apc.html"
+  },"1": {
+    "doc": "APC",
+    "title": "APC",
+    "content": "APC dataset QC metrics happy1 . ",
+    "url": "/gh_nb_deploy/pr-preview/pr-21/p14_release_pages/p14_post_processing_qc/apc.html",
+    
+    "relUrl": "/p14_release_pages/p14_post_processing_qc/apc.html"
+  },"2": {
+    "doc": "P14 Release Pre-processed QC",
+    "title": "P14 Release Pre-processed QC",
+    "content": "Welcome to the data and notebook documentation section. ",
+    "url": "/gh_nb_deploy/pr-preview/pr-21/p14_release_pages/p14_pre_processing_qc/",
+    
+    "relUrl": "/p14_release_pages/p14_pre_processing_qc/"
+  },"3": {
+    "doc": "P14 Release Post-processed QC",
+    "title": "P14 Release Post-processed QC",
+    "content": "Welcome to the data and notebook documentation section. ",
+    "url": "/gh_nb_deploy/pr-preview/pr-21/p14_release_pages/p14_post_processing_qc/",
+    
+    "relUrl": "/p14_release_pages/p14_post_processing_qc/"
+  },"4": {
+    "doc": "P14 Release QC Pages",
+    "title": "P14 Release QC Pages",
+    "content": "Welcome to the data and notebook documentation section. ",
+    "url": "/gh_nb_deploy/pr-preview/pr-21/p14_release_pages/",
+    
+    "relUrl": "/p14_release_pages/"
+  },"5": {
+    "doc": "Home",
+    "title": "Linked Data QC Pages",
+    "content": "This is the main landing page. ",
+    "url": "/gh_nb_deploy/pr-preview/pr-21/#linked-data-qc-pages",
+    
+    "relUrl": "/#linked-data-qc-pages"
+  },"6": {
+    "doc": "Home",
+    "title": "Home",
+    "content": " ",
+    "url": "/gh_nb_deploy/pr-preview/pr-21/",
+    
+    "relUrl": "/"
+  },"7": {
+    "doc": "OP",
+    "title": "OP",
+    "content": "OP dataset QC metrics sad2 . ",
+    "url": "/gh_nb_deploy/pr-preview/pr-21/p14_release_pages/p14_post_processing_qc/op.html",
+    
+    "relUrl": "/p14_release_pages/p14_post_processing_qc/op.html"
+  },"8": {
+    "doc": "Combined Release Report",
+    "title": "Combined Release Report",
+    "content": "# Combined Release Report Produced at the end of the pipeline, after all dataset release assets have been generated. Aggregates metrics across all processable datasets that cannot be computed in independent per-dataset reports. The report is one row per release. Participant drop counts aggregate dataset membership and drop reasons into one row per PID, then calculate both population reports in one aggregation. No checkpoint storage is required. --- ## Column Reference | Column | Type | Applies To | Aggregation | Match | Description | --------------------------------------------- | ------ | ------------ | -------------------------- | ----- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | `release_number` | int | All datasets | -- | exact | Release number (primary key). | `ods_code_counts` | struct | All datasets | Per release | exact | Aggregated ODS code statistics across all datasets. Contains `total_unique_count` (total distinct ODS codes), `pseudonymised_unique_count` (count of unique codes pseudonymised to `\"999999\"`), and `pseudonymised_proportion` (fraction of ODS codes that are pseudonymised). | `participants_without_questionnaire_count` | int | All datasets | Per release | exact | Number of distinct PIDs that do not have a questionnaire in the release, aggregated across all datasets without double-counting. | `total_participants` | int | All datasets | Per release | exact | Number of distinct PIDs in the release, aggregated across all datasets including Mapping dataset without double-counting. | `total_participants_secondary_record` | int | All datasets | Per release | exact | Number of distinct PIDs that have at least one secondary care record in the release, aggregated across all datasets, so excluding Mapping dataset, without double-counting. | `dropped_participants_since_previous_release` | struct | All datasets | Per release | exact | Distinct PIDs that were in the previous release but are absent from the current release across all datasets. Contains `total`, `unexplained` (dropped with no expected reason, expected to be 0), and `explained` counts per reason: `withdrawn` (`full`/`partialToFull` withdrawals), `flagged` (death date prior to registration date), `duplicates` (duplicate NHS number registrations), `qd_exclusions` (QD team exclusions), and `birth_episode_filtering` (episodes occurring in the participant's year of birth). | `new_participants_not_released` | struct | All datasets | Per release | exact | Distinct PIDs first seen in this release's latest raw loads (absent from all earlier raw loads) that are absent from the current release across all datasets. Same `total` / `unexplained` / `explained` shape as `dropped_participants_since_previous_release`. | `withdrawals_since_previous_release` | int | All datasets | Per release, Cross-release | exact | Number of distinct PIDs that have been withdrawn since the previous release, aggregated across all datasets without double-counting. | Note that participant drop reason counts within `explained` may overlap, so they do not sum to `total`. A PID retained in any dataset is excluded from both `total` and `unexplained`; only PIDs absent from every dataset are counted. `total_participants` and `participants_without_questionnaire_count` include mapping-only participants. The two dropped-participant metrics compare outcome datasets only, so presence in the mapping dataset does not count as retention. ",
+    "url": "/gh_nb_deploy/pr-preview/pr-21/quality-control/combined-release-report.html",
+    
+    "relUrl": "/quality-control/combined-release-report.html"
+  }
+}
