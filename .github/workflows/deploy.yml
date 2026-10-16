@@ -16,5 +16,4 @@ jobs:
         with:
           folder: docs
           branch: gh-pages
-          target-folder: production
           clean: true
