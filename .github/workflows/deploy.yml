@@ -16,5 +16,5 @@ jobs:
         with:
           folder: docs
           branch: gh-pages
-          target-folder: docs
-          clean: true
+          clean-exclude: |
+            pr-preview/**
